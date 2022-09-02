@@ -7,7 +7,7 @@ const blogController = require('./controllers/blogController');
 const port = process.env.API_PORT || 3000;
 
 app.post('/login', blogController.login);
-// app.post('/user', );
+app.post('/user', blogController.createUser);
 // app.get('/user/:id', );
 // app.get('/user', );
 // app.post('/categories', );
@@ -26,8 +26,8 @@ app.get('/', (_request, response) => {
 });
 
 app.use((err, req, res, _next) => {
-  const { message } = err;
-  return res.status(400).json({ message });
+  const { code, message } = err;
+  return res.status(code || 400).json({ message });
 });
 
 app.listen(port, () => console.log('ouvindo porta', port));
