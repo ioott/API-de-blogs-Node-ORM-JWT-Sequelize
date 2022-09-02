@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false,
-        foreignKey: true,
+      foreignKey: true,
     },
     categoryId: {
       type: DataTypes.INTEGER,
@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       foreignKey: true,
     },
+  }, {
+    timestamps: false,
   });
 
   PostCategory.associate = (models) => {

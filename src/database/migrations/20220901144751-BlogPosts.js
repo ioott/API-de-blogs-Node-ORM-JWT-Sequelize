@@ -8,11 +8,6 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
-        foreignKey: true,
-        references: {
-          model: 'PostCategories',
-          key: 'categoryId',
-        },
       },
       title: {
         type: Sequelize.STRING,
