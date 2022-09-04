@@ -26,7 +26,7 @@ const blogService = {
     return token;
   },
 
-  getUser: async () => {
+  getUsers: async () => {
     const users = await User.findAll({
       attributes: { exclude: ['password'] },
     });
@@ -47,6 +47,11 @@ const blogService = {
     const category = await Category.create({ name });
 
     return category;
+  },
+
+  getCategories: async () => {
+    const categories = await Category.findAll();
+    return categories;
   },
 };
 

@@ -17,8 +17,8 @@ const blogController = {
     res.status(201).json({ token });
   },
 
-  getUser: async (req, res) => {
-    const users = await blogService.getUser();
+  getUsers: async (req, res) => {
+    const users = await blogService.getUsers();
     res.status(200).json(users);
   },
 
@@ -31,6 +31,11 @@ const blogController = {
     const { name } = req.body;
     const newCategory = await blogService.createCategory(name);
     res.status(201).json(newCategory);
+  },
+
+  getCategories: async (req, res) => {
+    const categories = await blogService.getCategories();
+    res.status(200).json(categories);
   },
 };
 
