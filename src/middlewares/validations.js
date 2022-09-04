@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const { User } = require('../database/models');
 
-const userValidation = {
+const validations = {
   checkBodyLogin: (obj) => {
     const schema = Joi.object({
       email: Joi.string().required(),
@@ -23,6 +23,21 @@ const userValidation = {
       email: Joi.string().email().required(),
       password: Joi.string().min(6).required(),
 
+    });
+    const { error, value } = schema.validate(obj);
+
+    if (error) {
+      const err = new Error();
+      err.code = 400;
+      err.message = error.message;
+      throw err;
+    }
+    return value;
+  },
+
+    checkBodyCreateCategory: (obj) => {
+    const schema = Joi.object({
+      name: Joi.string().required(),
     });
     const { error, value } = schema.validate(obj);
 
@@ -78,4 +93,4 @@ const userValidation = {
 
 };
 
-module.exports = userValidation;
+module.exports = validations;

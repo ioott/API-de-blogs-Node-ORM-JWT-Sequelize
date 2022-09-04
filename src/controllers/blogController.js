@@ -26,6 +26,12 @@ const blogController = {
     const user = await blogService.getUserById(req.params.id);
     res.status(200).json(user);
   },
+
+  createCategory: async (req, res) => {
+    const { name } = req.body;
+    const newCategory = await blogService.createCategory(name);
+    res.status(201).json(newCategory);
+  },
 };
 
 module.exports = blogController;

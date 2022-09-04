@@ -11,7 +11,7 @@ app.post('/login', blogController.login);
 app.post('/user', blogController.createUser);
 app.get('/user/:id', tokenValidation, blogController.getUserById);
 app.get('/user', tokenValidation, blogController.getUser);
-// app.post('/categories', );
+app.post('/categories', tokenValidation, blogController.createCategory);
 // app.get('/categories', );
 // app.post('/post', );
 // app.get('/post/:id', );
