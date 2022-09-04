@@ -9,6 +9,7 @@ const blogService = {
     const token = tokenHelper.createToken({ id: userId });
     return token;
   },
+
   createUser: async (displayName, email, password, image) => {
     await userValidation.checkBodyCreateUser({
       displayName, email, password,
@@ -18,9 +19,17 @@ const blogService = {
     const user = await User.create(
       { displayName, email, password, image },
     );
+
     const { id } = user.dataValues;
     const token = tokenHelper.createToken({ id });
     return token;
+  },
+
+  getUser: async () => {
+    const users = await User.findAll({
+      attributes: { exclude: ['password'] },
+    });
+    return users;
   },
 };
 

@@ -2,14 +2,15 @@ require('dotenv').config();
 require('express-async-errors');
 const app = require('./api');
 const blogController = require('./controllers/blogController');
+const tokenValidation = require('./middlewares/auth');
 
 // não remova a variável `API_PORT` ou o `listen`
 const port = process.env.API_PORT || 3000;
 
 app.post('/login', blogController.login);
 app.post('/user', blogController.createUser);
-// app.get('/user/:id', );
-// app.get('/user', );
+app.get('/user', tokenValidation, blogController.getUser);
+// app.get('/user/:id', blogController.getUserById);
 // app.post('/categories', );
 // app.get('/categories', );
 // app.post('/post', );
