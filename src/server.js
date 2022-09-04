@@ -9,8 +9,8 @@ const port = process.env.API_PORT || 3000;
 
 app.post('/login', blogController.login);
 app.post('/user', blogController.createUser);
+app.get('/user/:id', tokenValidation, blogController.getUserById);
 app.get('/user', tokenValidation, blogController.getUser);
-// app.get('/user/:id', blogController.getUserById);
 // app.post('/categories', );
 // app.get('/categories', );
 // app.post('/post', );
@@ -28,7 +28,7 @@ app.get('/', (_request, response) => {
 
 app.use((err, req, res, _next) => {
   const { code, message } = err;
-  return res.status(code || 400).json({ message });
+  return res.status(code).json({ message });
 });
 
 app.listen(port, () => console.log('ouvindo porta', port));

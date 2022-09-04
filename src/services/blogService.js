@@ -15,7 +15,7 @@ const blogService = {
       displayName, email, password,
     });
 
-    await userValidation.checkIfExists(email);
+    await userValidation.checkIfExistsEmail(email);
     const user = await User.create(
       { displayName, email, password, image },
     );
@@ -30,6 +30,14 @@ const blogService = {
       attributes: { exclude: ['password'] },
     });
     return users;
+  },
+
+  getUserById: async (id) => {
+    await userValidation.checkIfExistsId(id);
+    const user = await User.findByPk(id, {
+      attributes: { exclude: ['password'] },
+    });
+    return user;
   },
 };
 

@@ -21,6 +21,11 @@ const blogController = {
     const users = await blogService.getUser();
     res.status(200).json(users);
   },
+
+  getUserById: async (req, res) => {
+    const user = await blogService.getUserById(req.params.id);
+    res.status(200).json(user);
+  },
 };
 
 module.exports = blogController;

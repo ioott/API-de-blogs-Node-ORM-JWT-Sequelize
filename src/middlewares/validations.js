@@ -35,7 +35,7 @@ const userValidation = {
     return value;
   },
 
-  checkIfExists: async (email) => {
+  checkIfExistsEmail: async (email) => {
     const exists = await User.findOne({
       where: { email },
       raw: true,
@@ -45,6 +45,16 @@ const userValidation = {
       const err = new Error();
       err.code = 409;
       err.message = 'User already registered';
+      throw err;
+    }
+  },
+
+    checkIfExistsId: async (id) => {
+    const exists = await User.findByPk(id);
+    if (!exists) {
+      const err = new Error();
+      err.code = 404;
+      err.message = 'User does not exist';
       throw err;
     }
   },
