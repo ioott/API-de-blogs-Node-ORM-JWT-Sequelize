@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const { User } = require('../database/models');
+const { BlogPost } = require('../database/models');
 
 const validations = {
   checkBodyLogin: (obj) => {
@@ -35,7 +36,7 @@ const validations = {
     return value;
   },
 
-    checkBodyCreateCategory: (obj) => {
+  checkBodyCreateCategory: (obj) => {
     const schema = Joi.object({
       name: Joi.string().required(),
     });
@@ -64,12 +65,22 @@ const validations = {
     }
   },
 
-    checkIfExistsId: async (id) => {
+  checkIfExistsUserId: async (id) => {
     const exists = await User.findByPk(id);
     if (!exists) {
       const err = new Error();
       err.code = 404;
       err.message = 'User does not exist';
+      throw err;
+    }
+  },
+
+  checkIfExistsPostId: async (id) => {
+    const exists = await BlogPost.findByPk(id);
+    if (!exists) {
+      const err = new Error();
+      err.code = 404;
+      err.message = 'Post does not exist';
       throw err;
     }
   },

@@ -36,7 +36,7 @@ const blogService = {
   },
 
   getUserById: async (id) => {
-    await validations.checkIfExistsId(id);
+    await validations.checkIfExistsUserId(id);
     const user = await User.findByPk(id, {
       attributes: { exclude: ['password'] },
     });
@@ -74,6 +74,27 @@ const blogService = {
         }],
     });
     return posts;
+  },
+
+  getPostById: async (id) => {
+    await validations.checkIfExistsPostId(id);
+    const post = await BlogPost.findByPk(id, {
+      include: [{
+          model: User,
+          as: 'user',
+          attributes: { exclude: ['password'] },
+        },
+        {
+          model: Category,
+          as: 'categories',
+          through: {
+            model: PostCategory,
+            as: 'posts',
+            attributes: { exclude: ['postId', 'categoryId'] },
+          },
+        }],
+    });
+    return post;
   },
 };
 
