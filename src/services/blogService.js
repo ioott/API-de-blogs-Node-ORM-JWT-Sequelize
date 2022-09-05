@@ -2,6 +2,8 @@ const validations = require('../middlewares/validations');
 const tokenHelper = require('../helpers/token');
 const { User } = require('../database/models');
 const { Category } = require('../database/models');
+const { BlogPost } = require('../database/models');
+const { PostCategory } = require('../database/models');
 
 const blogService = {
   login: async (email, password) => {
@@ -52,6 +54,26 @@ const blogService = {
   getCategories: async () => {
     const categories = await Category.findAll();
     return categories;
+  },
+
+  getPosts: async () => {
+    const posts = await BlogPost.findAll({
+      include: [{
+          model: User,
+          as: 'user',
+          attributes: { exclude: ['password'] },
+        },
+        {
+          model: Category,
+          as: 'categories',
+          through: {
+            model: PostCategory,
+            as: 'posts',
+            attributes: { exclude: ['postId', 'categoryId'] },
+          },
+        }],
+    });
+    return posts;
   },
 };
 

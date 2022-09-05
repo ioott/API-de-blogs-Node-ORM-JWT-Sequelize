@@ -37,6 +37,11 @@ const blogController = {
     const categories = await blogService.getCategories();
     res.status(200).json(categories);
   },
+
+  getPosts: async (req, res) => {
+    const posts = await blogService.getPosts();
+    res.status(200).json(posts);
+  },
 };
 
 module.exports = blogController;
